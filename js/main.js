@@ -2,7 +2,7 @@ var siteName = document.getElementById("siteName");
 var siteUrl = document.getElementById("siteUrl");
 var submitBtn = document.getElementById("submitBtn");
 var updateBtn = document.getElementById("updateBtn");
-
+var searchInput = document.getElementById("search");
 
 var storageKey = "bookmarks";
 var bookmarksList = [];
@@ -86,7 +86,7 @@ function validateInputs(element){
         if(element.id == "siteName"){ // based on current input show the error message
             element.nextElementSibling.innerHTML = "Invalid Site Name, the site name should start with 3 chars and end with char"
         }else{
-            element.nextElementSibling.innerHTML = "Invalid URL!, the url should follow the standard rules, for example [ https://example.com ]" 
+            element.nextElementSibling.innerHTML = "Invalid URL, the url should follow the standard rules,for example [ https://example.com ]" 
         }
 
         // Associate the error message model with the submit / update button.
@@ -211,13 +211,14 @@ function addBookmark(){
 
 function displayBookmarks(list){
 
+    console.log("The list : ", list)
     var htmlBox = ``;
 
     for (var i = 0; i < list.length; i++) {
         htmlBox += `
         <tr class="text-center">
               <td>${i+1}</td>
-              <td>${list[i].name}</td>
+              <td>${(list[i].searchName ? list[i].searchName : list[i].name)}</td>
               <td>
                 <a class="btn btn-visit text-white" href="${list[i].url}" target="_blank"> <i class="fa-solid fa-eye"></i> Visit</a>
               </td>
@@ -305,6 +306,29 @@ function deleteBookmark(id){
     displayBookmarks(bookmarksList);
 }
 
+function search(keyword){
+
+    var searchResult = [];
+    var keywordInLower = keyword.toLowerCase();
+
+    for (var i = 0; i < bookmarksList.length; i++) {
+        
+        var bookmarkName = bookmarksList[i].name;
+        var bookmarkNameInLower= bookmarkName.toLowerCase();
+
+        if(bookmarkNameInLower.includes(keywordInLower)){
+            var indexOfKeyword = bookmarkNameInLower.indexOf(keywordInLower);
+            var searchedTxt = bookmarkName.substring(indexOfKeyword,indexOfKeyword+keywordInLower.length);
+            var coloredTxt = `<span class="text-danger">${searchedTxt}</span>`;
+            bookmarksList[i].searchName = bookmarkName.replace(searchedTxt,coloredTxt);
+            searchResult.push(bookmarksList[i]);
+        }
+    }
+    
+    displayBookmarks(searchResult);
+
+}
+
 //* ============================ [ Setup Local Storage ]======================================
 
 function setStorage(list){
@@ -327,5 +351,25 @@ siteUrl.addEventListener("keyup",function(ele){
     validateInputs(ele.target);
 })
 
+// on change for copy and past actions ....
+siteName.addEventListener("change",function(ele){
+    validateInputs(ele.target);
+})
+
+siteUrl.addEventListener("change",function(ele){
+    validateInputs(ele.target);
+})
+
 submitBtn.addEventListener("click",addBookmark)
 updateBtn.addEventListener("click",saveUpdates)
+
+
+searchInput.addEventListener("keyup",function(ele){ // When user search for something ....
+    search(ele.target.value);
+})
+
+searchInput.addEventListener("search",function(ele){ // when search clear by clicking on X    
+    if(ele.target.value == ''){
+        search(ele.target.value);
+    }
+})

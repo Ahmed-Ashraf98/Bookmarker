@@ -93,6 +93,10 @@ body{
   box-shadow: 0 0 0 .25rem rgba(253, 165, 13, 0.25);
 }
 
+.feedback-msg{
+  word-break:break-all
+}
+
 .btn-submit{
   --bs-btn-color: #fff;
   --bs-btn-bg: #d1512d;
@@ -165,3 +169,4 @@ body{
   }
   
 }
+
