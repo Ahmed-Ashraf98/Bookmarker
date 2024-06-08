@@ -28,7 +28,7 @@ var formInputs = [siteName,siteUrl];
 /*
  - by default the inputs are empty, hence that we need to add the wrong input modal to our submit button
  */
-associateWrongInputModal(); 
+setWrongInputModal(); 
 
 // Run to display the stored bookmarks if available in the local storage
 
@@ -68,7 +68,7 @@ function validateInputs(element){
         If yes then disassociate the error message model from the submit / update button.
         */
         if(allInputsAreValid()){
-            disassociateWrongInputModal();
+            removeWrongInputModal();
         }
 
     }else{ // if input not valid
@@ -90,7 +90,7 @@ function validateInputs(element){
         }
 
         // Associate the error message model with the submit / update button.
-        associateWrongInputModal();
+        setWrongInputModal();
     }
 }
 
@@ -113,13 +113,25 @@ function allInputsAreValid(){
     }
 }
 
-function associateWrongInputModal(){
-    var eleBtn = currentBtnIsSubmit ? submitBtn : updateBtn;
-    eleBtn.setAttribute("data-bs-toggle","modal");
-    eleBtn.setAttribute("data-bs-target","#wrongInputsModal");
+function setWrongInputModal(){
+    // var eleBtn = currentBtnIsSubmit ? submitBtn : updateBtn;
+    if(currentBtnIsSubmit){
+        submitBtn.setAttribute("data-bs-toggle","modal");
+        submitBtn.setAttribute("data-bs-target","#wrongInputsModal");
+        updateBtn.setAttribute("data-bs-toggle","");
+        updateBtn.setAttribute("data-bs-target","");
+    }else{
+        updateBtn.setAttribute("data-bs-toggle","modal");
+        updateBtn.setAttribute("data-bs-target","#wrongInputsModal");
+        submitBtn.setAttribute("data-bs-toggle","");
+        submitBtn.setAttribute("data-bs-target","");
+    }
+
+    // eleBtn.setAttribute("data-bs-toggle","modal");
+    // eleBtn.setAttribute("data-bs-target","#wrongInputsModal");
 }
 
-function disassociateWrongInputModal(){
+function removeWrongInputModal(){
     var eleBtn = currentBtnIsSubmit ? submitBtn : updateBtn;
     eleBtn.setAttribute("data-bs-toggle","");
     eleBtn.setAttribute("data-bs-target","");
@@ -168,7 +180,7 @@ function enableUpdateBtn(){
     submitBtn.classList.add("d-none");
 }
 
-// * ======================================== [ CRUD Section ] ==========================================
+// * ======================================== [ CRUD Operations ] ==========================================
 
 function addBookmark(){
 
@@ -194,7 +206,7 @@ function addBookmark(){
     resetInputvalidationStatus(); // reset input validation status
     setStorage(bookmarksList); // update the storage
     displayBookmarks(bookmarksList); // display the records
-    associateWrongInputModal(); // because now the inputs are empty 
+    setWrongInputModal(); // because now the inputs are empty 
 }
 
 function displayBookmarks(list){
@@ -240,8 +252,9 @@ function prepareForUpdate(id){
     inputsRegex.siteName.status = true;
     inputsRegex.siteUrl.status = true;
 
-    // Enable update btn and hide submit btn
-    enableUpdateBtn();
+    removeWrongInputModal(); // remove the modal from submit btn  [ currentbtn is submit ]
+    enableUpdateBtn();// Enable update btn and hide submit btn. & update the currentbtn to updateBtn
+    removeWrongInputModal(); // remove the modal from update btn, because by default the stored data is valid until the user start typing [ currentbtn is update ]
 }
 
 function saveUpdates(){
@@ -263,7 +276,8 @@ function saveUpdates(){
         clear();
         resetFormValidation();
         resetInputvalidationStatus();
-        enableSubmitBtn();
+        enableSubmitBtn(); // Enable submit btn and hide update btn [ currentbtn is submit ]
+        setWrongInputModal(); // enable the modal on submit btn, because now the inputs are empty 
         return;
     }
 
@@ -277,10 +291,9 @@ function saveUpdates(){
     setStorage(bookmarksList); // update local storage
     displayBookmarks(bookmarksList); // display the records
 
-    associateWrongInputModal(); // because now the inputs are empty 
-
-    // Enable submit btn and hide update btn
-    enableSubmitBtn();
+     
+    enableSubmitBtn(); // Enable submit btn and hide update btn [ currentbtn is submit ]
+    setWrongInputModal(); // enable the modal on submit btn, because now the inputs are empty 
 }
 
 function deleteBookmark(id){
@@ -292,7 +305,7 @@ function deleteBookmark(id){
     displayBookmarks(bookmarksList);
 }
 
-//* ============================ [ Local Storage Section ]======================================
+//* ============================ [ Setup Local Storage ]======================================
 
 function setStorage(list){
     localStorage.setItem(storageKey,JSON.stringify(list));
@@ -304,7 +317,7 @@ function getStorage(){
 }
 
 
-//* ============================ [ Events Section ]======================================
+//* ============================ [ Setup Events ]======================================
 
 siteName.addEventListener("keyup",function(ele){
         validateInputs(ele.target);
