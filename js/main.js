@@ -84,7 +84,7 @@ function validateInputs(element){
         element.nextElementSibling.classList.add("invalid-feedback");
 
         if(element.id == "siteName"){ // based on current input show the error message
-            element.nextElementSibling.innerHTML = "Invalid Site Name, the site name should start with 3 chars and end with char"
+            element.nextElementSibling.innerHTML = "Invalid Site Name, the site name should start with 3 of any [ alphabetical or digit character, or underscore ] and end with the same"
         }else{
             element.nextElementSibling.innerHTML = "Invalid URL, the url should follow the standard rules,for example [ https://example.com ]" 
         }
