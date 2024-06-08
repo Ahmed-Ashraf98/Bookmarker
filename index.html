@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/images/bookmark.ico" />
+    <title>Bookmarker</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+
+    <main class="">
+      
+      <!--* Header Start -->
+      <header class="main-header d-flex flex-column justify-content-center align-items-center mt-5">
+          <h1 class="main-header-title">Bookmarker</h1>
+      </header>
+      <!--! Header End -->
+
+      <!--* Form Section Start -->
+      <section class="bookmark-form mt-5 container d-flex flex-column py-5">
+          <header class="align-self-center mb-5">
+            <h2 class="h4 form-title mb-0">
+              <i class="fa-solid fa-bookmark"></i>
+              Bookmark your favorite sites
+              <i class="fa-solid fa-bookmark"></i>
+            </h2>
+          </header>
+          <div class="bookmark-inputs-group mb-3">
+            <div class="mb-3">
+              <label for="siteName" class="form-label"> <strong><i class="fa-solid fa-book-bookmark"></i> Site Name</strong> </label>
+              <input type="text" class="form-control" id="siteName" placeholder="Bookmark Name">
+              <div class="feedback-msg"></div>
+            </div>
+            <div class="mb-3">
+              <label for="siteUrl" class="form-label"> <strong><i class="fa-solid fa-link"></i> Site URL</strong></label>
+              <input type="url" class="form-control" id="siteUrl" placeholder="Website URL"></input>
+              <div class="feedback-msg"></div>
+            </div>
+          </div>
+      
+          <button id="submitBtn" class="d-inline-block btn btn-submit align-self-center px-sm-5">Submit</button>
+
+          <button id="updateBtn" class="d-none btn btn-update align-self-center px-sm-5">Update</button>
+
+
+        <!--* Modal ( Only in case there are invalid inputs !!! ) -->
+        <!-- data-bs-backdrop="static" data-bs-keyboard="false" -->
+        <div class="modal fade" id="wrongInputsModal" tabindex="-1" aria-labelledby="wrongInputsModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content shadow-lg">
+              <div class="modal-header">
+                
+                <div class="header-circles d-flex">
+                  <div class="red-circle bg-danger  opacity-75 me-1 rounded rounded-circle"></div>
+                  <div class="red-circle bg-warning opacity-75 me-1 rounded rounded-circle"></div>
+                  <div class="red-circle bg-success opacity-75 me-1 rounded rounded-circle"></div>
+                </div>
+                <a class="modal-close-btn text-black" data-bs-dismiss="modal" aria-label="Close">
+                  <i class="fa-solid fa-xmark fs-4" ></i>
+                </a>
+              </div>
+              <div class="modal-body">
+                <h5 class="main-msg">
+                  Site Name or Url is not valid, Please follow the rules below :
+                </h5>
+                <ul class="list-unstyled d-flex flex-column align-items-start">
+                  <li class="ps-sm-5 my-3"><i class="fa-regular fa-circle-right text-danger"></i> Site name must contain at least 3 characters</li>
+                  <li class="ps-sm-5"><i class="fa-regular fa-circle-right text-danger"></i> Site URL must be a valid one</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--! End of modal -->
+
+      </section>
+      <!--! Form Section End -->
+      
+      <!--* Table Section Start -->
+      <section class="container mt-5 overflow-x-auto">
+        <table class="table table-light">
+
+          <thead>
+            <tr class="text-center">
+              <th>Index</th>
+              <th>Website Name</th>
+              <th>Visit</th>
+              <th>Update</th>
+              <th>Delete</th>
+            </tr>  
+          </thead>
+          <tbody id="table_data">
+    
+          </tbody>
+        </table>
+      </section>
+      <!--! Table Section End -->
+
+
+
+    </main>
+
+   
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>

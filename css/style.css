@@ -1,0 +1,167 @@
+
+/** ============================================= Font Settings Section ============================================== */
+
+@font-face {
+    font-family: Pacifico;
+    src: url("../webfonts/Pacifico-Regular.ttf");
+}
+
+
+@font-face {
+    font-family: Righteous;
+    src: url("../webfonts/Righteous-Regular.ttf");
+}
+
+@font-face {
+  font-family: BreeSerif;
+  src: url("../webfonts/BreeSerif-Regular.ttf");
+}
+
+@font-face {
+  font-family: PTS;
+  src: url("../webfonts/PTSansCaption-Regular.ttf");
+  font-size: 400;
+}
+
+
+/** ============================================= Global Settings ============================================== */
+
+
+::selection{
+  background-color: #f1b133;
+  color: white;
+}
+
+body{
+    font-family: PTS, sans-serif;
+    background-color: #F7ECDE;
+}
+
+
+/** ============================================= Header Section ============================================== */
+
+
+.main-header-title
+{
+  font-size: calc(1.5rem + 1.5vw);
+  position: relative;
+  font-family: Pacifico, cursive;
+  font-weight: 400;
+  z-index: 1;
+
+  &:hover{
+    &::after{
+        width: 100%;
+        height: 70%;
+      }
+  }
+
+  &::after{
+    content: "";
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 100%;
+    height: 30%;
+    background-color: orange;
+    z-index: -1;
+    transition: all 0.5s;
+  }
+
+
+}
+
+/** ============================================= Form Section ============================================== */
+
+
+.bookmark-form{
+
+    border-top: 2px black dotted;
+    border-bottom: 2px black dotted;
+    & .form-title{
+        font-family:Righteous, cursive;
+        color: transparent;
+        background: linear-gradient(346deg, rgba(179,182,23,1) 0%, rgba(23,100,33,1) 100%);
+        background-clip: text;
+    }
+}
+
+.form-control:focus {
+  border-color: #efa747;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(253, 165, 13, 0.25);
+}
+
+.btn-submit{
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #d1512d;
+  --bs-btn-border-color: #d1512d;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #bb4120;
+  --bs-btn-hover-border-color: #a03315;
+}
+
+.btn-visit{
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #1bb193;
+  --bs-btn-border-color: #09b08e;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #1a846f;
+  --bs-btn-hover-border-color: #117964;
+}
+
+.btn-update{
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #e0ae22;
+  --bs-btn-border-color: #977005;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #c2961c;
+  --bs-btn-hover-border-color: #a59e17;
+}
+
+
+.btn-update {
+  &.btn-check:checked+.btn, &.btn.active, &.btn.show, &.btn:first-child:active, :not(.btn-check)+.btn:active {
+    /* color: var(--bs-btn-active-color);
+    background-color: var(--bs-btn-active-bg);
+    border-color: var(--bs-btn-active-border-color); */
+    background-color: #e7c52e;
+    /* border-color: var(--bs-btn-active-border-color); */
+  }
+}
+
+.btn-visit {
+  &.btn-check:checked+.btn, &.btn.active, &.btn.show, &.btn:first-child:active, :not(.btn-check)+.btn:active {
+    /* color: var(--bs-btn-active-color);
+    background-color: var(--bs-btn-active-bg);
+    border-color: var(--bs-btn-active-border-color); */
+    background-color: #21dab5;
+    /* border-color: var(--bs-btn-active-border-color); */
+  }
+}
+
+
+/** ============================================= Modal Section ============================================== */
+
+
+.modal-header{
+  border-bottom: 0;
+  & .modal-close-btn{
+    cursor: pointer;
+  }
+}
+
+.modal-content {
+  border: unset;
+
+  & .modal-body .main-msg{
+    font-family: BreeSerif;
+  }
+
+  & .header-circles div{
+    width: 20px;
+    height: 20px;
+  }
+  
+}
