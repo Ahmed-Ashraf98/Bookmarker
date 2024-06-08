@@ -124,24 +124,28 @@ body{
   --bs-btn-hover-border-color: #a59e17;
 }
 
+:not(.btn-check)+.btn-update.btn:active {
+  color: #fff;
+  background-color: #dabc45;
+}
+
+:not(.btn-check)+.btn-submit.btn:active {
+  color: #fff;
+  background-color: #d44f0c;
+  border-color:#a03315;
+}
 
 .btn-update {
-  &.btn-check:checked+.btn, &.btn.active, &.btn.show, &.btn:first-child:active, :not(.btn-check)+.btn:active {
-    /* color: var(--bs-btn-active-color);
-    background-color: var(--bs-btn-active-bg);
-    border-color: var(--bs-btn-active-border-color); */
+   &.btn:first-child:active {
+    color: #fff;
     background-color: #e7c52e;
-    /* border-color: var(--bs-btn-active-border-color); */
+    border-color:#f2d03a;
   }
 }
 
 .btn-visit {
-  &.btn-check:checked+.btn, &.btn.active, &.btn.show, &.btn:first-child:active, :not(.btn-check)+.btn:active {
-    /* color: var(--bs-btn-active-color);
-    background-color: var(--bs-btn-active-bg);
-    border-color: var(--bs-btn-active-border-color); */
+   &.btn:first-child:active {
     background-color: #21dab5;
-    /* border-color: var(--bs-btn-active-border-color); */
   }
 }
 
