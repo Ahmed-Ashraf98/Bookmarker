@@ -7,6 +7,7 @@ var updateBtn = document.getElementById("updateBtn");
 var storageKey = "bookmarks";
 var bookmarksList = [];
 var currentIndex;
+var currentId;
 var currentBtnIsSubmit = true;
 
 var inputsRegex = {
@@ -142,6 +143,29 @@ function resetFormValidation(){
         formInputs[i].classList.remove("is-valid");
         formInputs[i].classList.remove("is-invalid");
     }
+
+
+}
+
+function resetInputvalidationStatus(){   
+    inputsRegex.siteName.status = false;
+    inputsRegex.siteUrl.status = false;
+}
+
+function enableSubmitBtn(){
+    currentBtnIsSubmit = true;
+    updateBtn.classList.add("d-none");
+    updateBtn.classList.remove("d-inline-block");
+    submitBtn.classList.add("d-inline-block");
+    submitBtn.classList.remove("d-none");
+}
+
+function enableUpdateBtn(){
+    currentBtnIsSubmit = false;
+    updateBtn.classList.remove("d-none");
+    updateBtn.classList.add("d-inline-block");
+    submitBtn.classList.remove("d-inline-block");
+    submitBtn.classList.add("d-none");
 }
 
 // * ======================================== [ CRUD Section ] ==========================================
@@ -167,6 +191,7 @@ function addBookmark(){
 
     clear(); // clear the form inputs
     resetFormValidation(); // reset validation messages and flags [ valid - invalid ]
+    resetInputvalidationStatus(); // reset input validation status
     setStorage(bookmarksList); // update the storage
     displayBookmarks(bookmarksList); // display the records
     associateWrongInputModal(); // because now the inputs are empty 
@@ -207,9 +232,7 @@ function prepareForUpdate(id){
     siteUrl.value = bookmarksList[index].url;
 
     currentIndex = index; // this index is very important for saveUpdates() function
-
-    // Current Btn is Update
-    currentBtnIsSubmit = false;
+    currentId = id; // this index is very important for saveUpdates() function
 
     resetFormValidation();// reset validation messages and flags [ valid - invalid ]
 
@@ -218,10 +241,7 @@ function prepareForUpdate(id){
     inputsRegex.siteUrl.status = true;
 
     // Enable update btn and hide submit btn
-    updateBtn.classList.remove("d-none");
-    updateBtn.classList.add("d-inline-block");
-    submitBtn.classList.remove("d-inline-block");
-    submitBtn.classList.add("d-none");
+    enableUpdateBtn();
 }
 
 function saveUpdates(){
@@ -234,24 +254,33 @@ function saveUpdates(){
         return;
     }
 
+
+    // Check if user deleted the item during the update process [ Handle Unexpected User Behavior ]
+    var indexOfRecord =  getElementIndexById(currentId);
+
+    if(indexOfRecord == undefined){
+        alert("Your are trying to update deleted item, going to abort this process");
+        clear();
+        resetFormValidation();
+        resetInputvalidationStatus();
+        enableSubmitBtn();
+        return;
+    }
+
     // If the inputs are valid, then update the record data
     bookmarksList[currentIndex].name = siteName.value;
     bookmarksList[currentIndex].url = siteUrl.value;
 
     clear(); // clear the form inputs
     resetFormValidation(); // reset validation messages and flags [ valid - invalid ]
+    resetInputvalidationStatus(); // reset input validation status
     setStorage(bookmarksList); // update local storage
     displayBookmarks(bookmarksList); // display the records
 
-    currentBtnIsSubmit = true; // Now the current btn is Submit
     associateWrongInputModal(); // because now the inputs are empty 
 
-
     // Enable submit btn and hide update btn
-    updateBtn.classList.add("d-none");
-    updateBtn.classList.remove("d-inline-block");
-    submitBtn.classList.add("d-inline-block");
-    submitBtn.classList.remove("d-none");
+    enableSubmitBtn();
 }
 
 function deleteBookmark(id){
