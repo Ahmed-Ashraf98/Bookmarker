@@ -214,21 +214,38 @@ function displayBookmarks(list){
     console.log("The list : ", list)
     var htmlBox = ``;
 
+    // for (var i = 0; i < list.length; i++) {
+    //     htmlBox += `
+    //     <tr class="text-center">
+    //           <td>${i+1}</td>
+    //           <td>${(list[i].searchName ? list[i].searchName : list[i].name)}</td>
+    //           <td>
+    //             <a class="btn btn-visit text-white" href="${list[i].url}" target="_blank"> <i class="fa-solid fa-eye"></i> Visit</a>
+    //           </td>
+    //           <td>
+    //             <button onclick="prepareForUpdate(${list[i].id})" class="btn btn-update text-white"><i class="fa-solid fa-pen-to-square"></i> Update</button>
+    //           </td>
+    //           <td>
+    //             <button onclick="deleteBookmark(${list[i].id})" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Delete</button>
+    //           </td>
+    //         </tr>`;
+    // }
+
     for (var i = 0; i < list.length; i++) {
         htmlBox += `
-        <tr class="text-center">
-              <td>${i+1}</td>
-              <td>${(list[i].searchName ? list[i].searchName : list[i].name)}</td>
-              <td>
+        <tr>
+              <th row-header="Index" scope="row">${i+1}</th>
+              <td row-header="Website Name">${(list[i].searchName ? list[i].searchName : list[i].name)}</td>
+              <td row-header="Visit">
                 <a class="btn btn-visit text-white" href="${list[i].url}" target="_blank"> <i class="fa-solid fa-eye"></i> Visit</a>
               </td>
-              <td>
+              <td row-header="Update">
                 <button onclick="prepareForUpdate(${list[i].id})" class="btn btn-update text-white"><i class="fa-solid fa-pen-to-square"></i> Update</button>
               </td>
-              <td>
+              <td row-header="Delete">
                 <button onclick="deleteBookmark(${list[i].id})" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Delete</button>
               </td>
-            </tr>`;
+        </tr>`;
     }
 
     document.getElementById("table_data").innerHTML = htmlBox;

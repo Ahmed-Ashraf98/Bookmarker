@@ -174,3 +174,44 @@ body{
   
 }
 
+/**=============================== Table ========================================= */
+
+.table-custom-responsive tr{
+  text-align: center;
+}
+
+@media (max-width: 991px) {
+
+  .table-custom-responsive tr{
+    text-align: start;
+  }
+  
+
+  .table-custom-responsive  {
+    word-wrap:break-word;
+    table-layout: fixed;
+  }
+  .table-custom-responsive > thead th {
+    display: none;
+  }
+  .table-custom-responsive > tbody td,
+  .table-custom-responsive > tbody th {
+    display: block;
+  }
+
+  [row-header] {
+    word-wrap:break-word;
+    position: relative;
+    vertical-align: middle;
+  }
+  [row-header]:before {
+    content: attr(row-header);
+    display: inline-block;
+    vertical-align: middle;
+    text-align: left;
+    width: 50%;
+    padding-right: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
